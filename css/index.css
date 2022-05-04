@@ -1,0 +1,62 @@
+/* 顶部导航栏 */
+body {
+    background: url("../img/login-bg.png");
+    background-repeat:no-repeat; 
+    background-attachment:fixed;
+    background-size: 100%, 100%;
+}
+
+.navbar.navbar-default.navbar-fixed-top {
+    height: 6%;
+    /* background-color: beige; */
+}
+
+.navbar-header {
+    height: 100%;
+    padding-right: 8%;
+}
+
+.navbar-brand {
+    padding: 1%;
+    height: 100%;
+}
+
+.navbar-brand img {
+    height: 100%;
+}
+
+/* 导航栏颜色 */
+.navbar-collapse {
+    background-color: #f8f8f8;
+}
+
+.navbar-nav>li>a {
+    font-family: STXihei, "华文细黑", "Microsoft YaHei", "微软雅黑";
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
+.navbar-nav>li:hover {
+    background-color: #f0eeee;
+}
+
+.main {
+    background-color: rgba(255, 255, 255, 0.85);
+    padding-top: 77px;
+}
+
+.left-div {
+    padding-left: 20px;
+}
+
+.right-div {
+    padding-right: 20px;
+    padding-top: 20px;
+
+    border-right: 7px groove; 
+    border-top: 7px groove;
+    background: transprant;
+    border-left: 7px groove;
+    border-bottom: 7px groove;
+
+}
