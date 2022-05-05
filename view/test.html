@@ -64,84 +64,74 @@
 	<div class="main container">
 		<div class="row">
 			<div class="col-md-offset-2 col-md-8">
-				<div class="main-wrap">
-					<!-- 试卷标题 -->
-					<div class="question-title">
-						<?=$data['title']?>
+				<!-- 试卷标题 -->
+				<div class="question-title">
+					<?=$data['title']?>
+				</div>
+
+				<!-- 试卷内容 -->
+				<form action="total.php?eaxm_id=<?=$id?>" method="post">
+					<!-- 题型导航 -->
+					<div class="nav-type">
+						<ul class="nav nav-tabs" role="tablist">
+							<?php foreach($data["data"] as $k=>$v): ?>
+							<li role="presentation" class="<?php if($number[$k] == 1) echo " active"; ?>">
+								<a href="#<?=$k?>" aria-controls="home" role="tab" data-toggle="tab">
+									<?=$v["name"]?>
+								</a>
+							</li>
+							<?php endforeach; ?>
+						</ul>
 					</div>
 
-					<!-- 试卷内容 -->
-					<form action="total.php?eaxm_id=<?=$id?>" method="post">
-						<!-- 题型导航 -->
-						<div class="nav-type">
-							<ul class="nav nav-tabs" role="tablist">
-								<?php foreach($data["data"] as $k=>$v): ?>
-								<li role="presentation" class="<?php if($number[$k] == 1) echo " active"; ?>">
-									<a href="#<?=$k?>" aria-controls="home" role="tab" data-toggle="tab">
-										<?=$v["name"]?>
-									</a>
-								</li>
-								<?php endforeach; ?>
-							</ul>
-						</div>
-
-						<!-- 每道大题 -->
-						<div class="tab-content">
-							<?php foreach($data["data"] as $k=>$v): ?>
-							<div role="tabpanel" id="<?=$k?>" class="question-wrap tab-pane in <?php if($number[$k] == 1) echo "
-								active"; ?>">
-								<!-- 题目描述 -->
-								<div class="question-type">
-									<?=$number[$k]?>、
-									<?=$v["name"]?>
-									<span>
-										(共
-										<?=$count[$k]?>题,
-										每题
-										<?=$score[$k]?>分)
-									</span>
+					<!-- 每道大题 -->
+					<div class="tab-content">
+						<?php foreach($data["data"] as $k=>$v): ?>
+						<div role="tabpanel" id="<?=$k?>"
+							class="question-wrap tab-pane fade<?php if($number[$k] == 1) echo " in active"; ?>">
+							<!-- 题目描述 -->
+							<div class="question-type">
+								<?=$number[$k]?>、<?=$v["name"]?>
+								<span>
+									(共
+									<?=$count[$k]?>题,
+									每题
+									<?=$score[$k]?>分)
+								</span>
+							</div>
+							<!-- 每道小题 -->
+							<div class="question-each">
+								<?php foreach($v['data'] as $kk=>$vv): ?>
+								<!-- 题目 -->
+								<div class="question-name">
+									<?=$kk, '. ', $vv['question']?>
 								</div>
-								<!-- 每道小题 -->
-								<div class="question-each">
-									<?php foreach($v['data'] as $kk=>$vv): ?>
-									<!-- 题目 -->
-									<div class="question-name">
-										<?=$kk, '. ', $vv['question']?>
-									</div>
-									<!-- 选项 -->
-									<div class="question-option">
-										<?php foreach($vv["option"] as $kkk=>$vvv): ?>
-										<!-- 判断多选框还是单选框（多选框需要在name后加上[]） -->
-										<label>
-											<input value="<?=$kkk?>" 
-											type="<?php if($k=='multiple')echo "checkbox"; else echo "radio"; ?>"
-											name="<?=$k?>[<?=$kk?>]<?php if($k=="multiple") echo "[]";?>">
-											<?=$vvv?>
-										</label>
-										<?php endforeach; ?>
-									</div>
+								<!-- 选项 -->
+								<div class="question-option">
+									<?php foreach($vv["option"] as $kkk=>$vvv): ?>
+									<!-- 判断多选框还是单选框（多选框需要在name后加上[]） -->
+									<label>
+										<input value="<?=$kkk?>" type="<?php if($k=='multiple') echo "checkbox"; else echo "radio" ; ?>"
+										name="<?=$k?>[<?=$kk?>]<?php if($k=="multiple") echo "[]";?>">
+										<?=$vvv?>
+									</label>
 									<?php endforeach; ?>
 								</div>
+								<?php endforeach; ?>
 							</div>
-							<?php endforeach; ?>
 						</div>
+						<?php endforeach; ?>
+					</div>
 
-						<!-- 提交按钮 -->
-						<div class="question-act">
-							<input type="submit" name="submit" value="交卷">
-						</div>
-					</form>
-
-				</div>
+					<!-- 提交按钮 -->
+					<div class="question-act">
+						<input type="submit" name="submit" value="交卷">
+					</div>
+				</form>
 			</div>
 		</div>
 	</div>
 
-	<!-- 页面底部 -->
-	<!-- <div style="height: 32px;"></div>
-    <div class="footer">
-        PHP在线考试系统
-    </div> -->
 </body>
 
 </html>

@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>在线模拟考试系统</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;"/>    <title>在线模拟考试系统</title>
     <script src="../js/jquery.min.js"></script>
     <script src="../js/bootstrap.min.js"></script>
 
@@ -39,6 +39,8 @@
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav">
                             <li class="active"><a href="#">主页</a></li>
+                            <?php if($role == "teacher" || $role == "manager")
+                                echo '<li><a href="../make_exam.php">发布试题</a></li>';?>
                             <li><a href="../personal_page.php">个人信息</a></li>
                         </ul>
                         <form action="../index.php" method="get">
@@ -79,7 +81,9 @@
                         <div class="thumbnail">
                             <img src="../img/login-bg.png" alt="试卷">
                             <div class="caption">
-                                <h3><?=$v["exam_name"]?></h3>
+                                <div class="question-title">
+                                    <h3><?=$v["exam_name"]?></h3>
+                                </div>
                                 <ul>
                                     <li><?=$v["exam_time"]?></li>
                                     <li>试卷出题人: <?=$v["teacher_name"]?></li>

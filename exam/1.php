@@ -9,15 +9,15 @@ return[
             'score'=>20,
             'data'=>[
                 1=>[
-                'question'=>'使用PHP写好的程序，在Linux和Windows平台上都可以运行。',
-                'option'=>['A' => '对', 'B' => '错'],
-                'answer'=>['A']
-            ],
+                    'question'=>'使用PHP写好的程序，在Linux和Windows平台上都可以运行。',
+                    'option'=>['A' => '对', 'B' => '错'],
+                    'answer'=>['A']
+                ],
                 2=>[
-                'question'=>'PHP可以支持MySQL数据库，但不支持其它的数据库。',
-                'option'=>['A'=>'对', 'B'=>'错'],
-                'answer'=>['B']
-            ],
+                    'question'=>'PHP可以支持MySQL数据库，但不支持其它的数据库。',
+                    'option'=>['A'=>'对', 'B'=>'错'],
+                    'answer'=>['B']
+                ],
                 3=>[
                     'question'=>'PHP有很多流行的MVC框架，这些框架可以使PHP的开发更加快捷。',
                     'option'=>['A'=>'对', 'B'=>'错'],
@@ -36,7 +36,9 @@ return[
             ]
         ],
         'single' => [                               //单选题
-            'name'=>'单选题','score'=>20,'data'=>[
+            'name'=>'单选题',
+            'score'=>20,
+            'data'=>[
                 1=>[
                     'question'=>'下列选项中，不是URL地址中所包含的信息是( ）',
                     'option'=>[

@@ -1,3 +1,7 @@
+/* 顶部导航栏 */
+html, body {
+    height: 100%;
+}
 body {
     background: url("../img/login-bg.png");
     background-repeat:no-repeat; 
@@ -7,6 +11,7 @@ body {
 
 .navbar.navbar-default.navbar-fixed-top {
     height: 6%;
+    /* background-color: beige; */
 }
 
 .navbar-header {
@@ -31,8 +36,7 @@ body {
 .navbar-nav>li>a {
     font-family: STXihei, "华文细黑", "Microsoft YaHei", "微软雅黑";
     padding-left: 20px;
-    padding-right: 20px;
-}
+    padding-right: 20px;}
 
 .navbar-nav>li:hover {
     background-color: #f0eeee;
@@ -41,37 +45,12 @@ body {
 .main {
     background-color: rgba(255, 255, 255, 0.85);
     padding-top: 6%;
-    /* height: 100%; */
+    height: 100%;
 }
-
-.left-div {
-    padding-left: 2%;
-    padding-top: 1%;
-}
-
-.right-div {
-    padding-right: 2%;
-    padding-top: 1%;
-
+.main_info {
     border-right: 7px groove; 
     border-top: 7px groove;
     background: transprant;
     border-left: 7px groove;
     border-bottom: 7px groove;
-}
-
-.row {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    flex-wrap: wrap;
-}
-.row > [class*='col-'] {
-    display: flex;
-    flex-direction: column;
-}
-
-.question-title {
-    height: 60px;
 }

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>make考试</title>
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/jquery.timeout.js"></script>
+    <link rel="stylesheet" href="../css/make_exam.css">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <script src="../js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container" style="height: 100%;">
+            <div class="row" style="height: 100%;">
+                <div class="col-md-2 col-md-offset-1" style="height: 100%;">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header" style="height: 100%;">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                            data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <div class="icon" style="height: 100%;">
+                            <a class="navbar-brand" href="./">
+                                <img src="../img/icon1.png" alt="瞎考">
+                            </a>    
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-9">
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav">
+                            <li><a href="../index.php">主页</a></li>
+                            <?php if($role == "teacher" || $role == "manager")
+                                echo '<li><a href="../make_exam.php">发布试题</a></li>';?>
+                            <li class="active"><a href="#">个人信息</a></li>
+                        </ul>
+                        <form action="../index.php" method="get">
+                            <button type="submit" name="sign_out" value="sign_out"
+                                class="btn btn-default navbar-btn navbar-right">Sign Out</button>
+                        </form>
+                    </div><!-- /.navbar-collapse -->
+                </div>
+
+            </div>
+        </div><!-- /.container-fluid -->
+    </nav>
+
+    <form action="../make_exam.php" method="post">
+        <div class="main container">
+            <div class="row">
+                <div class="col-md-offset-2 col-md-8">
+                    <!-- 试卷标题 -->
+                    <div class="question-title">
+                        <input type="text" name="title" value="试卷标题">
+                        <input type="text" name="timeout" value="时间">
+                    </div>
+
+                    <!-- 提醒导航 -->
+                    <div class="nav-type">
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active">
+                                <a href="#binary" aria-controls="binary" role="tab" data-toggle="tab">判断题</a>
+                            </li>
+                            <li role="presentation">
+                                <a href="#single" aria-controls="single" role="tab" data-toggle="tab">单选题</a>
+                            </li>
+                            <li role="presentation">
+                                <a href="#multiple" aria-controls="multiple" role="tab" data-toggle="tab">多选题</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!--题目内容-->
+                    <div class="tab-content">
+                        <div class="question-wrap tab-pane active in" role="tabpanel" id="binary">
+                            <div class="question-type">一、判断题<span>(共
+                                    <input type="text" value="1" name="binary_num">
+                                    题,每题
+                                    <input type="text" value="1" name="binary_score">
+                                    分)
+                                </span></div>
+                            <!--题目表单-->
+                            <div class="question-each">
+                                <!--标题-->
+                                <div class="question-name">
+                                    <input type="text" value="题目" name="binary[data][1][question]">
+                                </div>
+                                <div class="question-option">
+                                    <label><input type="radio" value="A" name="binary[data][1][answer][]">
+                                        <input type="text" value="对" name="binary[data][1][option][A]">
+                                    </label>
+                                    <label><input type="radio" value="B" name="binary[data][1][answer][]">
+                                        <input type="text" value="错" name="binary[data][1][option][B]">
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="question-wrap tab-pane" role="tabpanel" id="single">
+                            <div class="question-type">
+                                二、单选题
+                                <span>(共
+                                    <input type="text" value="1" name="single_num">
+                                    题,每题
+                                    <input type="text" value="2" name="single_score">
+                                    分)
+                                </span>
+                            </div>
+                            <div class="question-each">
+                                <div class="question-name">
+                                    <input type="text" value="题目" name="single[data][1][question]">
+                                </div>
+                                <div class="question-option">
+                                    <label><input type="radio" value="A" name="single[data][1][answer][]">A.
+                                        <input type="text" value="A选项" name="single[data][1][option][A]">
+                                    </label>
+                                    <label><input type="radio" value="B" name="single[data][1][answer][]">B.
+                                        <input type="text" value="B选项" name="single[data][1][option][B]">
+                                    </label>
+                                    <label><input type="radio" value="C" name="single[data][1][answer][]">C.
+                                        <input type="text" value="C选项" name="single[data][1][option][C]">
+                                    </label>
+                                    <label><input type="radio" value="D" name="single[data][1][answer][]">D.
+                                        <input type="text" value="D选项" name="single[data][1][option][D]">
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="question-wrap tab-pane" role="tabpanel" id="multiple">
+                            <div class="question-type">
+                                三、多选题
+                                <span>(共
+                                    <input type="text" value="1" name="multiple_num">
+                                    题,每题
+                                    <input type="text" value="3" name="multiple_score">
+                                    分)
+                                </span>
+                            </div>
+                            <div class="question-each">
+                                <div class="question-name">
+                                    <input type="text" value="题目" name="multiple[data][1][question]">
+                                </div>
+                                <div class="question-option">
+                                    <label><input type="checkbox" value="A" name="multiple[data][1][answer][]">A.
+                                        <input type="text" value="A选项" name="multiple[data][1][option][A]">
+                                    </label>
+                                    <label><input type="checkbox" value="B" name="multiple[data][1][answer][]">B.
+                                        <input type="text" value="B选项" name="multiple[data][1][option][B]">
+                                    </label>
+                                    <label><input type="checkbox" value="C" name="multiple[data][1][answer][]">C.
+                                        <input type="text" value="C选项" name="multiple[data][1][option][C]">
+                                    </label>
+                                    <label><input type="checkbox" value="D" name="multiple[data][1][answer][]">D.
+                                        <input type="text" value="D选项" name="multiple[data][1][option][D]">
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="question-act">
+                        <input type="submit" name="submit" value="制作">
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </form>
+
+</body>
+
+</html>

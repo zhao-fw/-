@@ -27,7 +27,7 @@
     function insert_exam($exam_name, $exam_time, $teacher_id, $teacher_name) {
         global $mysql;
         $tem_sql = "INSERT INTO exam(exam_id, exam_name, exam_time, teacher_id, teacher_name) 
-        VALUES (NULL, $exam_name, $exam_time, $teacher_id, $teacher_name)";
+        VALUES (NULL, '$exam_name', $exam_time, $teacher_id, '$teacher_name')";
         if ($mysql->query($tem_sql) === true) {
             return true;
         }
@@ -36,6 +36,13 @@
         }
     }
 
+    function get_exam_num() {
+        global $mysql;
+        $tem_sql = "select count(*) as num from exam";
+        $result = $mysql->query($tem_sql);
+        return $result->fetch_assoc()["num"];
+    }
+    
     function get_exam() {
         global $mysql;
         $tem_sql = "select exam_id, exam_name, exam_time, teacher_name from exam";
@@ -57,6 +64,18 @@
             $res["data"] = $result->fetch_all(MYSQLI_ASSOC);
             // echo "<pre>";
             // print_r($result -> fetch_all(MYSQLI_ASSOC));
+        }
+        else if ($role == "teacher") {
+            $tem_sql = "SELECT g.exam_name, g.student_name, g.student_grade 
+                FROM exam as e, grade as g 
+                WHERE e.exam_id=g.exam_id AND e.teacher_id='$uid';";
+            $result = $mysql->query($tem_sql);
+            $res["data"] = $result->fetch_all(MYSQLI_ASSOC);
+        }
+        else if ($role == "student") {
+            $tem_sql = "SELECT exam_name, student_name, student_grade FROM grade WHERE student_id='$uid'";
+            $result = $mysql->query($tem_sql);
+            $res["data"] = $result->fetch_all(MYSQLI_ASSOC);
         }
         return $res;
     }

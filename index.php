@@ -13,8 +13,9 @@ else if (isset($_COOKIE["is_login"]) && $_COOKIE["is_login"] == 1) {
     }
 
     // 连接数据库并且从中获取试卷信息
-    $uid = $_COOKIE["uid"];
     require("./connect.php");
+    $uid = $_COOKIE["uid"];
+    $role = get_role($uid);
     // echo '<pre>';
     // print_r(get_role($_COOKIE["uid"]));
     $data = get_exam();
