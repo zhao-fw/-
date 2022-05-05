@@ -38,7 +38,7 @@
 
     function get_exam() {
         global $mysql;
-        $tem_sql = "select exam_name, exam_time, teacher_name from exam";
+        $tem_sql = "select exam_id, exam_name, exam_time, teacher_name from exam";
         $result = $mysql->query($tem_sql);
         return $result->fetch_all(MYSQLI_ASSOC);
     }

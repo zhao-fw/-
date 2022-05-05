@@ -2,130 +2,96 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>考试结束</title>
-    <script src="../js/jquery.min.js"></script>
-    <script src="../js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="../css/test.css">
-    <link rel="stylesheet" href="../css/bootstrap.min.css">
-    <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../css/total.css">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>考试结束</title>
+	<script src="../js/jquery.min.js"></script>
+	<script src="../js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="../css/test.css">
+	<link rel="stylesheet" href="../css/bootstrap.min.css">
+	<link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="../css/total.css">
+	<script>
+		$(window).on('load',function(){
+			$(".right input").prop("checked",true);
+			$(".wrong input").prop("checked",true);
+		});
+	</script>
 </head>
 
 <body>
-    <div class="container main" style="padding: 30px;">
-        <div class="row">
-            <div class="col-md-10 col-md-offset-1">
-                <div class="jumbotron" style="background-color: #4c6d90!important;">
-                    <h1>考试结束!</h1>
-                    <p>一共作对了
-                        <?=$res?>题
-                    </p>
-                    <p><a class="btn btn-primary btn-lg" href="../index.php" role="button">返回首页</a></p>
-                </div>
-            </div>
+	<div class="container main" style="padding: 30px;">
+		<div class="row">
+			<div class="col-md-10 col-md-offset-1">
+				<div class="jumbotron" style="background-color: #4c6d90!important;">
+					<h1>考试结束!</h1>
+					<p>一共作对了
+						<?=$res?>题
+					</p>
+					<p><a class="btn btn-primary btn-lg" href="../index.php" role="button">返回首页</a></p>
+				</div>
+			</div>
 
-            <div class="col-md-8 col-md-offset-2">
-                <form action="total.php?id=<?=$id?>" method="post">
-                    <!-- 题型导航 -->
-                    <div class="nav-type">
-                        <ul class="nav nav-tabs" role="tablist">
-                            <li role="presentation" class="active">
-                                <a href="#binary" aria-controls="home" role="tab" data-toggle="tab">判断题</a>
-                            </li>
-                            <li role="presentation">
-                                <a href="#single" aria-controls="profile" role="tab" data-toggle="tab">单选题</a>
-                            </li>
-                            <li role="presentation">
-                                <a href="#multiple" aria-controls="messages" role="tab" data-toggle="tab">多选题</a>
-                            </li>
-                        </ul>
-                    </div>
+			<div class="col-md-8 col-md-offset-2">
+				<form action="total.php?id=<?=$id?>" method="post">
 
-                    <!--题目内容-->
-                    <div class="tab-content">
-                        <div role="tabpanel" class="question-wrap tab-pane in active" id="binary">
-                            <div class="question-type">一、判断题<span>(共
-                                    <?=$count['binary']?>题,每题
-                                    <?=$score['binary']?>分)
-                                </span></div>
-                            <!--题目表单-->
-                            <div class="question-each">
-                                <?php foreach($right_answer['data']['binary']['data'] as $k=>$v): ?>
-                                <!--标题-->
-                                <div class="question-name">
-                                    <?=$k, '. ', $v['question']?>
-                                </div>
-                                <div class="question-option">
-                                    <label class="<?=$status["binary"][$k][0]?>"><input type="radio" value="1" name="binary[<?=$k?>]">对</label>
-                                    <!--选项-->
-                                    <label class="<?=$status["binary"][$k][1]?>"><input type="radio" value="0" name="binary[<?=$k?>]">错</label>
-                                </div>
-                                <?php endforeach; ?>
-                            </div>
-                        </div>
+					<!-- 题型导航 -->
+					<div class="nav-type">
+						<ul class="nav nav-tabs" role="tablist">
+							<?php foreach($right_answer["data"] as $k=>$v): ?>
+							<li role="presentation" class="<?php if($number[$k] == 1) echo " active"; ?>">
+								<a href="#<?=$k?>" aria-controls="home" role="tab" data-toggle="tab">
+									<?=$v["name"]?>
+								</a>
+							</li>
+							<?php endforeach; ?>
+						</ul>
+					</div>
+					<!-- 每道大题 -->
+					<div class="tab-content">
+						<?php foreach($right_answer["data"] as $k=>$v): ?>
+						<div role="tabpanel" id="<?=$k?>" class="question-wrap tab-pane in <?php if($number[$k] == 1) echo "
+							active"; ?>">
+							<!-- 题目描述 -->
+							<div class="question-type">
+								<?=$number[$k]?>、
+								<?=$v["name"]?>
+								<span>
+									(共
+									<?=$count[$k]?>题,
+									每题
+									<?=$score[$k]?>分)
+								</span>
+							</div>
+							<!-- 每道小题 -->
+							<div class="question-each">
+								<?php foreach($v['data'] as $kk=>$vv): ?>
+								<!-- 题目 -->
+								<div class="question-name">
+									<?=$kk, '. ', $vv['question']?>
+								</div>
+								<!-- 选项 -->
+								<div class="question-option">
+									<?php foreach($vv["option"] as $kkk=>$vvv): ?>
+									<!-- 判断多选框还是单选框（多选框需要在name后加上[]） -->
+									<div class="<?=$status[$k][$kk][$kkk]?>">
+										<input 
+											value="<?=$kkk?>" type="<?php if($k=='multiple')echo "checkbox"; else echo "radio"; ?>"
+											name="<?=$k?>[<?=$kk?>]<?php if($k=="multiple") echo "[]";?>" disabled="disabled">
+										<?=$vvv?>
+									</div>
+									<?php endforeach; ?>
+								</div>
+								<?php endforeach; ?>
+							</div>
+						</div>
+						<?php endforeach; ?>
+					</div>
 
-                        <div role="tabpanel" id="single" class="tab-pane fade question-wrap">
-                            <div class="question-type">二、单选题<span>(共
-                                    <?=$count['single']?>题,每题
-                                    <?=$score['single']?>分)
-                                </span></div>
-                            <div class="question-each">
-                                <?php foreach($right_answer['data']['single']['data'] as $k=>$v): ?>
-                                <div class="question-name">
-                                    <?=$k, '. ', $v['question']?>
-                                </div>
-                                <div class="question-option">
-                                    <label class="<?=$status["single"][$k][0]?>"><input type="radio" value="A" name="single[<?=$k?>]">A.
-                                        <?=$v['option'][0]?>
-                                    </label>
-                                    <label class="<?=$status["single"][$k][1]?>"><input type="radio" value="B" name="single[<?=$k?>]">B.
-                                        <?=$v['option'][1]?>
-                                    </label>
-                                    <label class="<?=$status["single"][$k][2]?>"><input type="radio" value="C" name="single[<?=$k?>]">C.
-                                        <?=$v['option'][2]?>
-                                    </label>
-                                    <label class="<?=$status["single"][$k][3]?>"><input type="radio" value="D" name="single[<?=$k?>]">D.
-                                        <?=$v['option'][3]?>
-                                    </label>
-                                </div>
-                                <?php endforeach; ?>
-                            </div>
-                        </div>
-
-                        <div role="tabpanel" id="multiple" class="tab-pane fade question-wrap">
-                            <div class="question-type">三、多选题<span>(共
-                                    <?=$count['multiple']?>题,每题
-                                    <?=$score['multiple']?>分)
-                                </span></div>
-                            <div class="question-each">
-                                <?php foreach($right_answer['data']['multiple']['data'] as $k=>$v): ?>
-                                <div class="question-name">
-                                    <?=$k, '. ', $v['question']?>
-                                </div>
-                                <div class="question-option">
-                                    <label class="<?=$status["multiple"][$k][0]?>"><input type="checkbox" value="A" name="multiple[<?=$k?>][]">A.
-                                        <?=$v['option'][0]?>
-                                    </label>
-                                    <label class="<?=$status["multiple"][$k][1]?>"><input type="checkbox" value="B" name="multiple[<?=$k?>][]">B.
-                                        <?=$v['option'][1]?>
-                                    </label>
-                                    <label class="<?=$status["multiple"][$k][2]?>"><input type="checkbox" value="C" name="multiple[<?=$k?>][]">C.
-                                        <?=$v['option'][2]?>
-                                    </label>
-                                    <label class="<?=$status["multiple"][$k][3]?>"><input type="checkbox" value="D" name="multiple[<?=$k?>][]">D.
-                                        <?=$v['option'][3]?>
-                                    </label>
-                                </div>
-                                <?php endforeach; ?>
-                            </div>
-                        </div>
-                    </div>
-
-            </div>
-        </div>
-    </div>
+				</form>
+			</div>
+		</div>
+	</div>
 </body>
 
 </html>

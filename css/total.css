@@ -76,10 +76,10 @@ body {
 .question-option {
     margin: 5px 0;
 }
-.question-each label {
-    padding: 6px 10px;
-    display: block;
+.question-each .question-option div {
+    padding: 0.8% 1%;
     cursor: pointer;
+    margin-top: 1%;
 }
 
 /* 单选框 */
@@ -94,7 +94,7 @@ body {
     cursor: pointer;
 }
 
-.success {
+.right {
     background-color: rgb(94, 255, 0);
     border-radius: 5px;
     padding-left: 5px;
@@ -103,7 +103,7 @@ body {
     background-color: rgb(237, 13, 13);
     border-radius: 5px;
 }
-.choose {
+.right_no_choose {
     background-color: rgb(155, 152, 152);
     border-radius: 5px;
 }

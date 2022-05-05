@@ -20,7 +20,8 @@ else if (isset($_COOKIE["is_login"]) && $_COOKIE["is_login"] == 1) {
     $data = get_exam();
 
     require("./view/index.html");
-} else {
+}
+else {
     // 还未登录的用户
     echo "<script>alert('请先登录')</script>";
     echo "<script>setTimeout(function() {window.location.href='./login.php';},1000);</script>";

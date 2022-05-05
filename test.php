@@ -11,7 +11,7 @@ function getDataTotal($data){
 
 //获取题库ID
 function getTestId(){
-    $id = isset($_GET['id']) ? (int)$_GET['id'] : 1;
+    $id = isset($_GET['exam_id']) ? (int)$_GET['exam_id'] : 1;
     return max($id, 1);
 }
 
@@ -47,27 +47,33 @@ function toHTML($str){
 function getDataInfo($data){
     $count = [];
     $score = [];
+    $number = [];
+    $i = 1;
     //从题库读取信息
     foreach ($data as $k=>$v){
         //计算各题型的提目数量
         $count[$k] = count($v['data']);
         $score[$k] = round($v['score'] / $count[$k]);
+        $number[$k] = $i;
+        $i++;
     }
-    return [$count, $score];
+    unset($i);
+    return [$count, $score, $number];
 }
 
-$id = getTestId();
-$data = getDataById($id);
-if(!$data){
-    require './view/404.html';
-    exit;
+if (isset($_COOKIE["is_login"]) && $_COOKIE["is_login"] == 1) {
+    $id = getTestId();
+    $data = getDataById($id);
+    if(!$data){
+        require './view/404.html';
+        exit;
+    }
+    
+    list($count, $score, $number) = getDataInfo($data['data']);
+
+    // echo '<pre>';
+    // var_dump($data);
+    require './view/test.html';
 }
-
-list($count, $score) = getDataInfo($data['data']);
-// echo '<pre>';
-// var_dump($data);
-require './view/test.html'
-
-
 ?>
 
