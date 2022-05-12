@@ -6,10 +6,87 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>make考试</title>
     <script src="../js/jquery.min.js"></script>
-    <script src="../js/jquery.timeout.js"></script>
-    <link rel="stylesheet" href="../css/make_exam.css">
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <script src="../js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../css/make_exam.css">
+    <script>exam_id
+        function add_one_binary() {
+            let now = $(".one_binary");
+            let len = now.length;
+            let add_one = $(".one_binary:last");
+            let new_one = '<div class="one_binary">' +
+                '<div class="question-name">' +
+                len + '. <input type="text" placeholder="题目" name="binary[data][' + len + '][question]">' +
+                '</div>' +
+                '<div class="question-option">' +
+                '<label><input type="radio" value="A" name="binary[data][' + len + '][answer][]" checked>' +
+                '<input type="text" value="对" name="binary[data][' + len + '][option][A]">' +
+                '</label>' +
+                '<label><input type="radio" value="B" name="binary[data][' + len + '][answer][]">' +
+                '<input type="text" value="错" name="binary[data][' + len + '][option][B]">' +
+                '</label>' +
+                '</div>' +
+                '</div>';
+            add_one.after(new_one);
+
+            $("#binary input:first").val(len);
+        }
+        function add_one_single() {
+            let now = $(".one_single");
+            let len = now.length;
+            let add_one = $(".one_single:last");
+            let new_one = 
+                '<div class="one_single">' +
+                    '<div class="question-name">' +
+                        len + '. <input type="text" placeholder="题目" name="single[data][' + len + '][question]">' +
+                    '</div>' +
+                    '<div class="question-option">' +
+                        '<label><input type="radio" value="A" name="single[data][' + len + '][answer][]" checked>A.' +
+                            '<input type="text" value="A选项" name="single[data][' + len + '][option][A]">' +
+                        '</label>' +
+                        '<label><input type="radio" value="B" name="single[data][' + len + '][answer][]">B.' +
+                            '<input type="text" value="B选项" name="single[data][' + len + '][option][B]">' +
+                        '</label>' +
+                        '<label><input type="radio" value="C" name="single[data][' + len + '][answer][]">C.' +
+                            '<input type="text" value="C选项" name="single[data][' + len + '][option][C]">' +
+                        '</label>' +
+                        '<label><input type="radio" value="D" name="single[data][' + len + '][answer][]">D.' +
+                            '<input type="text" value="D选项" name="single[data][' + len + '][option][D]">' +
+                        '</label>' +
+                    '</div>' +
+                '</div>';
+
+            add_one.after(new_one);
+            $("#signal input:first").val(len);
+        }
+        function add_one_multiple() {
+            let now = $(".one_multiple");
+            let len = now.length;
+            let add_one = $(".one_multiple:last");
+            let new_one =
+                '<div class="one_multiple">' +
+                    '<div class="question-name">' +
+                        len + '. <input type="text" placeholder="题目" name="multiple[data][' + len + '][question]">' +
+                    '</div>' +
+                    '<div class="question-option">' +
+                        '<label><input type="checkbox" value="A" name="multiple[data][' + len + '][answer][]" checked>A.' +
+                        '<input type="text" value="A选项" name="multiple[data][' + len + '][option][A]">' +
+                        '</label>' +
+                        '<label><input type="checkbox" value="B" name="multiple[data][' + len + '][answer][]">B.' +
+                        '<input type="text" value="B选项" name="multiple[data][' + len + '][option][B]">' +
+                        '</label>' +
+                        '<label><input type="checkbox" value="C" name="multiple[data][' + len + '][answer][]">C.' +
+                        '<input type="text" value="C选项" name="multiple[data][' + len + '][option][C]">' +
+                        '</label>' +
+                        '<label><input type="checkbox" value="D" name="multiple[data][' + len + '][answer][]">D.' +
+                        '<input type="text" value="D选项" name="multiple[data][' + len + '][option][D]">' +
+                        '</label>' +
+                    '</div>' +
+                '</div>';
+            add_one.after(new_one);
+            $("#multiple input:first").val(len);
+        }
+    </script>
 </head>
 
 <body>
@@ -29,7 +106,7 @@
                         <div class="icon" style="height: 100%;">
                             <a class="navbar-brand" href="./">
                                 <img src="../img/icon1.png" alt="瞎考">
-                            </a>    
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -40,8 +117,8 @@
                         <ul class="nav navbar-nav">
                             <li><a href="../index.php">主页</a></li>
                             <?php if($role == "teacher" || $role == "manager")
-                                echo '<li><a href="../make_exam.php">发布试题</a></li>';?>
-                            <li class="active"><a href="#">个人信息</a></li>
+                                echo '<li  class="active"><a href="../make_exam.php">发布试题</a></li>';?>
+                            <li><a href="../personal_page.php">个人信息</a></li>
                         </ul>
                         <form action="../index.php" method="get">
                             <button type="submit" name="sign_out" value="sign_out"
@@ -58,10 +135,23 @@
         <div class="main container">
             <div class="row">
                 <div class="col-md-offset-2 col-md-8">
+                    <div style="padding-top: 15%; font: bold 17px/20px Georgia, serif;">
+                        使用说明：目前一共只能提供3种题型，可按需设计。在使用时，如果想添加一道题目，点击按钮即可。但是目前还不够完善，对于非法数据的处理不到位，并且暂时没有删除已有题目的功能。
+                        <br><br>
+                        提醒：对于正确答案，只要在当前小题中选择即可，最终即可生成新的试卷。
+                    </div>
                     <!-- 试卷标题 -->
                     <div class="question-title">
-                        <input type="text" name="title" value="试卷标题">
-                        <input type="text" name="timeout" value="时间">
+                        <input type="text" name="title" placeholder="试卷标题">
+                        <input type="text" name="timeout" placeholder="时间（分钟）">
+                        <select aria-label="试卷类型" name="exam_type">
+                            <option value="无" selected hidden>试卷类型</option>
+                            <option value="语文">语文</option>
+                            <option value="数学">数学</option>
+                            <option value="英语">英语</option>
+                            <option value="体育">体育</option>
+                            <option value="计算机">计算机</option>
+                        </select>
                     </div>
 
                     <!-- 提醒导航 -->
@@ -82,26 +172,16 @@
                     <!--题目内容-->
                     <div class="tab-content">
                         <div class="question-wrap tab-pane active in" role="tabpanel" id="binary">
-                            <div class="question-type">一、判断题<span>(共
-                                    <input type="text" value="1" name="binary_num">
-                                    题,每题
-                                    <input type="text" value="1" name="binary_score">
-                                    分)
+                            <div class="question-type">
+                                一、判断题
+                                <span>(
+                                    <input type="text" value="0" name="binary_num" hidden>
+                                    每题<input type="text" value="1" name="binary_score">分)
                                 </span></div>
                             <!--题目表单-->
                             <div class="question-each">
-                                <!--标题-->
-                                <div class="question-name">
-                                    <input type="text" value="题目" name="binary[data][1][question]">
-                                </div>
-                                <div class="question-option">
-                                    <label><input type="radio" value="A" name="binary[data][1][answer][]">
-                                        <input type="text" value="对" name="binary[data][1][option][A]">
-                                    </label>
-                                    <label><input type="radio" value="B" name="binary[data][1][answer][]">
-                                        <input type="text" value="错" name="binary[data][1][option][B]">
-                                    </label>
-                                </div>
+                                <div class="one_binary"></div>
+                                <div class="add_btn" onclick="add_one_binary()">添加一个</div>
                             </div>
                         </div>
 
@@ -109,31 +189,15 @@
                         <div class="question-wrap tab-pane" role="tabpanel" id="single">
                             <div class="question-type">
                                 二、单选题
-                                <span>(共
-                                    <input type="text" value="1" name="single_num">
-                                    题,每题
-                                    <input type="text" value="2" name="single_score">
-                                    分)
+                                <span>(
+                                    <input type="text" value="0" name="single_num" hidden>
+                                    每题<input type="text" value="2" name="single_score">分)
                                 </span>
                             </div>
                             <div class="question-each">
-                                <div class="question-name">
-                                    <input type="text" value="题目" name="single[data][1][question]">
+                                <div class="one_single">
                                 </div>
-                                <div class="question-option">
-                                    <label><input type="radio" value="A" name="single[data][1][answer][]">A.
-                                        <input type="text" value="A选项" name="single[data][1][option][A]">
-                                    </label>
-                                    <label><input type="radio" value="B" name="single[data][1][answer][]">B.
-                                        <input type="text" value="B选项" name="single[data][1][option][B]">
-                                    </label>
-                                    <label><input type="radio" value="C" name="single[data][1][answer][]">C.
-                                        <input type="text" value="C选项" name="single[data][1][option][C]">
-                                    </label>
-                                    <label><input type="radio" value="D" name="single[data][1][answer][]">D.
-                                        <input type="text" value="D选项" name="single[data][1][option][D]">
-                                    </label>
-                                </div>
+                                <div class="add_btn" onclick="add_one_single()">添加一个</div>
                             </div>
                         </div>
 
@@ -141,31 +205,15 @@
                         <div class="question-wrap tab-pane" role="tabpanel" id="multiple">
                             <div class="question-type">
                                 三、多选题
-                                <span>(共
-                                    <input type="text" value="1" name="multiple_num">
-                                    题,每题
-                                    <input type="text" value="3" name="multiple_score">
-                                    分)
+                                <span>(
+                                    <input type="text" value="0" name="multiple_num" hidden>
+                                    每题<input type="text" value="3" name="multiple_score">分)
                                 </span>
                             </div>
                             <div class="question-each">
-                                <div class="question-name">
-                                    <input type="text" value="题目" name="multiple[data][1][question]">
+                                <div class="one_multiple">
                                 </div>
-                                <div class="question-option">
-                                    <label><input type="checkbox" value="A" name="multiple[data][1][answer][]">A.
-                                        <input type="text" value="A选项" name="multiple[data][1][option][A]">
-                                    </label>
-                                    <label><input type="checkbox" value="B" name="multiple[data][1][answer][]">B.
-                                        <input type="text" value="B选项" name="multiple[data][1][option][B]">
-                                    </label>
-                                    <label><input type="checkbox" value="C" name="multiple[data][1][answer][]">C.
-                                        <input type="text" value="C选项" name="multiple[data][1][option][C]">
-                                    </label>
-                                    <label><input type="checkbox" value="D" name="multiple[data][1][answer][]">D.
-                                        <input type="text" value="D选项" name="multiple[data][1][option][D]">
-                                    </label>
-                                </div>
+                                <div class="add_btn" onclick="add_one_multiple()">添加一个</div>
                             </div>
                         </div>
 

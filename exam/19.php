@@ -1,7 +1,8 @@
 <?php return
 array (
-  'title' => '试卷标题',
-  'timeout' => '5',
+  'title' => '数学测试',
+  'timeout' => 300,
+  'exam_type' => '数学',
   'data' => 
   array (
     'binary' => 
@@ -12,7 +13,7 @@ array (
       array (
         1 => 
         array (
-          'question' => '题目',
+          'question' => '1+1=2',
           'answer' => 
           array (
             0 => 'A',
@@ -28,22 +29,22 @@ array (
     'single' => 
     array (
       'name' => '选择题',
-      'score' => 2,
+      'score' => 0,
       'data' => 
       array (
         1 => 
         array (
-          'question' => '题目',
-          'answer' => 
-          array (
-            0 => 'A',
-          ),
+          'question' => '1+2=',
           'option' => 
           array (
-            'A' => 'A选项',
-            'B' => 'B选项',
-            'C' => 'C选项',
-            'D' => 'D选项',
+            'A' => '1',
+            'B' => '2',
+            'C' => '3',
+            'D' => '4',
+          ),
+          'answer' => 
+          array (
+            0 => 'C',
           ),
         ),
       ),
@@ -56,17 +57,18 @@ array (
       array (
         1 => 
         array (
-          'question' => '题目',
-          'answer' => 
-          array (
-            0 => 'A',
-          ),
+          'question' => '4可以拆成',
           'option' => 
           array (
-            'A' => 'A选项',
-            'B' => 'B选项',
-            'C' => 'C选项',
-            'D' => 'D选项',
+            'A' => '1和1',
+            'B' => '1和2',
+            'C' => '1和3',
+            'D' => '2和2',
+          ),
+          'answer' => 
+          array (
+            0 => 'C',
+            1 => 'D',
           ),
         ),
       ),

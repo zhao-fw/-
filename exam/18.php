@@ -1,21 +1,35 @@
 <?php return
 array (
-  'title' => '试卷标题',
-  'timeout' => '3',
+  'title' => '语文测试',
+  'timeout' => 300,
+  'exam_type' => '语文',
   'data' => 
   array (
     'binary' => 
     array (
       'name' => '判断题',
-      'score' => 1,
+      'score' => 2,
       'data' => 
       array (
         1 => 
         array (
-          'question' => '题目',
+          'question' => '李白是男的',
           'answer' => 
           array (
             0 => 'A',
+          ),
+          'option' => 
+          array (
+            'A' => '对',
+            'B' => '错',
+          ),
+        ),
+        2 => 
+        array (
+          'question' => '李白是宋代的',
+          'answer' => 
+          array (
+            0 => 'B',
           ),
           'option' => 
           array (
@@ -28,18 +42,18 @@ array (
     'single' => 
     array (
       'name' => '选择题',
-      'score' => 2,
+      'score' => 0,
       'data' => 
       array (
         1 => 
         array (
-          'question' => '题目',
+          'question' => '李白活了多少岁',
           'option' => 
           array (
-            'A' => 'A选项',
-            'B' => 'B选项',
-            'C' => 'C选项',
-            'D' => 'D选项',
+            'A' => '58',
+            'B' => '61',
+            'C' => '65',
+            'D' => '70',
           ),
           'answer' => 
           array (
@@ -56,18 +70,18 @@ array (
       array (
         1 => 
         array (
-          'question' => '题目',
+          'question' => '下列诗歌中，是李白的诗歌的是：',
           'answer' => 
           array (
             0 => 'A',
-            1 => 'B',
+            1 => 'D',
           ),
           'option' => 
           array (
-            'A' => 'A选项',
-            'B' => 'B选项',
-            'C' => 'C选项',
-            'D' => 'D选项',
+            'A' => '将进酒',
+            'B' => '念奴娇·赤壁怀古',
+            'C' => '关山月',
+            'D' => '春日行',
           ),
         ),
       ),

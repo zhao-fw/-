@@ -63,6 +63,11 @@ function getDataInfo($data){
 
 if (isset($_COOKIE["is_login"]) && $_COOKIE["is_login"] == 1) {
     $id = getTestId();
+    require("./connect.php");
+    if (have_tested($_COOKIE["uid"], $id)) {
+        echo "<script>setTimeout(()=>{alert('你已经参加过一次该测试, 本次不计入成绩');}, 1000);</script>";
+    }
+
     $data = getDataById($id);
     if(!$data){
         require './view/404.html';

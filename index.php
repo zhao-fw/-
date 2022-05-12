@@ -19,6 +19,9 @@ else if (isset($_COOKIE["is_login"]) && $_COOKIE["is_login"] == 1) {
     // echo '<pre>';
     // print_r(get_role($_COOKIE["uid"]));
     $data = get_exam();
+    $type = get_exam_type();
+    // echo '<pre>';
+    // print_r($type);
 
     require("./view/index.html");
 }

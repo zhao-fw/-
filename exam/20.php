@@ -1,7 +1,8 @@
 <?php return
 array (
-  'title' => '试卷标题',
-  'timeout' => '5',
+  'title' => '测试',
+  'timeout' => 60,
+  'exam_type' => '无',
   'data' => 
   array (
     'binary' => 
@@ -12,7 +13,7 @@ array (
       array (
         1 => 
         array (
-          'question' => '题目',
+          'question' => '？',
           'answer' => 
           array (
             0 => 'A',
@@ -28,12 +29,12 @@ array (
     'single' => 
     array (
       'name' => '选择题',
-      'score' => 2,
+      'score' => 0,
       'data' => 
       array (
         1 => 
         array (
-          'question' => '题目',
+          'question' => '？？',
           'answer' => 
           array (
             0 => 'A',
@@ -56,11 +57,10 @@ array (
       array (
         1 => 
         array (
-          'question' => '题目',
+          'question' => '？？？',
           'answer' => 
           array (
             0 => 'A',
-            1 => 'B',
           ),
           'option' => 
           array (

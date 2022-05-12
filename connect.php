@@ -16,18 +16,35 @@
     // exam(exam_id, exam_name, exam_time, teacher_id, teacher_name);
     // grade(student_id, student_name, exam_id, exam_name, student_grade);
 
-    function get_role($uid) {
+    // 判断数据的
+    function have_tested($uid, $exam_id) {
         global $mysql;
-        $tem_sql = "select user_role as role from user where uid='$uid'";
+        $tem_sql = "SELECT * FROM grade WHERE uid='$uid' AND exam_id='$exam_id'";
         $result = $mysql->query($tem_sql);
-        $res = $result->fetch_assoc();
-        return $res["role"];
+        if ($result->num_rows > 0) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
-    function insert_exam($exam_name, $exam_time, $teacher_id, $teacher_name) {
+    // 插入数据的
+    function insert_exam($exam_name, $exam_time, $exam_type, $teacher_id, $teacher_name) {
         global $mysql;
-        $tem_sql = "INSERT INTO exam(exam_id, exam_name, exam_time, teacher_id, teacher_name) 
-        VALUES (NULL, '$exam_name', $exam_time, $teacher_id, '$teacher_name')";
+        $tem_sql = "INSERT INTO exam(exam_id, exam_name, exam_time, exam_type, teacher_id, teacher_name) 
+        VALUES (NULL, '$exam_name', $exam_time, '$exam_type', $teacher_id, '$teacher_name')";
+        if ($mysql->query($tem_sql) === true) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    function insert_grade($uid, $user_name, $exam_id, $exam_name, $grade) {
+        global $mysql;
+        $tem_sql = "INSERT INTO grade(uid, user_name, exam_id, exam_name, grade) 
+        VALUES ($uid, '$user_name', $exam_id, '$exam_name', $grade)";
         if ($mysql->query($tem_sql) === true) {
             return true;
         }
@@ -36,16 +53,32 @@
         }
     }
 
+    // 获取数据的
+    function get_role($uid) {
+        global $mysql;
+        $tem_sql = "select user_role as role from user where uid='$uid'";
+        $result = $mysql->query($tem_sql);
+        $res = $result->fetch_assoc();
+        return $res["role"];
+    }
+
     function get_exam_num() {
         global $mysql;
-        $tem_sql = "select count(*) as num from exam";
+        $tem_sql = "select max(exam_id) as num from exam";
         $result = $mysql->query($tem_sql);
         return $result->fetch_assoc()["num"];
     }
     
     function get_exam() {
         global $mysql;
-        $tem_sql = "select exam_id, exam_name, exam_time, teacher_name from exam";
+        $tem_sql = "select exam_id, exam_name, exam_time, exam_type, teacher_name from exam";
+        $result = $mysql->query($tem_sql);
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    function get_exam_type() {
+        global $mysql;
+        $tem_sql = "select exam_type, count(*) as num from exam group by exam_type";
         $result = $mysql->query($tem_sql);
         return $result->fetch_all(MYSQLI_ASSOC);
     }
@@ -56,24 +89,24 @@
         $role = get_role($uid);
         // 组装数据
         $res = array();
-        $res["title"] = ["exam_name", "student_name", "student_grade"];
+        $res["title"] = ["考试名称", "用户名", "成绩"];
         $res["data"] = array();
         if ($role == "manager") {
-            $tem_sql = "select exam_name, student_name, student_grade from grade";
+            $tem_sql = "select exam_name, user_name, grade from grade";
             $result = $mysql -> query($tem_sql);
             $res["data"] = $result->fetch_all(MYSQLI_ASSOC);
             // echo "<pre>";
             // print_r($result -> fetch_all(MYSQLI_ASSOC));
         }
         else if ($role == "teacher") {
-            $tem_sql = "SELECT g.exam_name, g.student_name, g.student_grade 
+            $tem_sql = "SELECT g.exam_name, g.user_name, g.grade 
                 FROM exam as e, grade as g 
                 WHERE e.exam_id=g.exam_id AND e.teacher_id='$uid';";
             $result = $mysql->query($tem_sql);
             $res["data"] = $result->fetch_all(MYSQLI_ASSOC);
         }
         else if ($role == "student") {
-            $tem_sql = "SELECT exam_name, student_name, student_grade FROM grade WHERE student_id='$uid'";
+            $tem_sql = "SELECT exam_name, user_name, grade FROM grade WHERE uid='$uid'";
             $result = $mysql->query($tem_sql);
             $res["data"] = $result->fetch_all(MYSQLI_ASSOC);
         }

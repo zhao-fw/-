@@ -48,9 +48,6 @@ body {
     height: 100%;
 }
 .main_info {
-    border-right: 7px groove; 
-    border-top: 7px groove;
-    background: transprant;
-    border-left: 7px groove;
-    border-bottom: 7px groove;
+    border:1px solid #9bdf70;
+    background:#f0fbeb;
 }

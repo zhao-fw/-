@@ -16,38 +16,16 @@
 	<!-- JQuery -->
 	<script>
 		$(function () {
-			//关闭页面前提示
-
-			//            $(window).on("beforeunload", function () {
-			//                return "您尚未交卷！此操作将导致您的回答丢失。";
-			//            });
-			//            timeOver = false; //保存当前是否已经达到交卷时间
 			//倒计时功能
+			var timeSet="<?php echo $data['timeout'];?>";
 			$(".timeout").timeout({
-				//考试时间（页面刷新时，时间会重置。）
-				"maxTime": 1800,                                                                                        //此处时间固定为1800,改为根据题库中的时间变化
-				//到达时间自动交卷。（如果浏览器禁用JavaScript，此功能不会生效）
+				"maxTime": timeSet,                                                                                        //此处时间固定为1800,改为根据题库中的时间变化
 				"onTimeOver": function () {
 					timeOver = true;
 					alert("考试时间结束，系统自动交卷。");
 					$("#testForm").submit();//交卷
 				}
 			});
-			//            $("#testForm").submit(function (event) {
-			//                $(window).off("beforeunload");      //解除绑定页面关闭事件
-			//                timeOver || checkMultiple(event);	//检查多选题是否全部作答
-			//            });
-			//多选题至少选择一项
-			//            function checkMultiple(event) {
-			//                $(".jq-multiple .question-each").each(function () {
-			//                    if ($(this).find(".question-option input[type=checkbox]:checked").length < 1) {
-			//                        $(this).find(".question-option input[type=checkbox]:first").focus();
-			//                        event.preventDefault();  //阻止表单提交
-			//                        alert('您有多选题未作答。');
-			//                        return false;
-			//                    }
-			//                });
-			//            };
 		});
 	</script>
 </head>
@@ -70,7 +48,7 @@
 				</div>
 
 				<!-- 试卷内容 -->
-				<form action="total.php?eaxm_id=<?=$id?>" method="post">
+				<form action="total.php?exam_id=<?=$id?>" method="post" id="testForm">
 					<!-- 题型导航 -->
 					<div class="nav-type">
 						<ul class="nav nav-tabs" role="tablist">
@@ -125,7 +103,7 @@
 
 					<!-- 提交按钮 -->
 					<div class="question-act">
-						<input type="submit" name="submit" value="交卷">
+						<input type="text" name="submited" value="交卷" onclick="submit()">
 					</div>
 				</form>
 			</div>

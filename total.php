@@ -1,7 +1,7 @@
 <?php
 //获取题库ID
 function getTestId(){
-    $id = isset($_GET['id']) ? (int)$_GET['id'] : 1;
+    $id = isset($_GET['exam_id']) ? (int)$_GET['exam_id'] : 1;
     return max($id, 1);
 }
 //根据题库序号载入题库,判断题库是否存在,然后对题库进行转义
@@ -50,7 +50,7 @@ function getDataInfo($data){
     return [$count, $score, $number];
 }
 
-if (isset($_POST["submit"]) && $_POST["submit"] == '交卷') {
+if (isset($_POST["submited"]) && $_POST["submited"] == '交卷') {
     $id = getTestId();
     $right_answer = getDataById($id);
     list($count, $score, $number) = getDataInfo($right_answer['data']);
@@ -60,6 +60,7 @@ if (isset($_POST["submit"]) && $_POST["submit"] == '交卷') {
     // var_dump($submit_answer);
     $status = array();
     $res = 0;
+    $res_fen = 0;
     // 以下为判断每个选项的状态（四种：选择了且正确，选择了且错误，未选择且正确，未选择且错误）
     foreach ($right_answer["data"] as $key => $value) {
         // 每个类型的题
@@ -94,6 +95,7 @@ if (isset($_POST["submit"]) && $_POST["submit"] == '交卷') {
                 }
                 if ($v["answer"] == $sub_array) {
                     $res++;
+                    $res_fen += $score[$key];
                 }
             } else {
                 for ($i = 0; $i < $tem; $i++) {
@@ -109,6 +111,9 @@ if (isset($_POST["submit"]) && $_POST["submit"] == '交卷') {
         }
     }
 
+    require("./connect.php");
+    if (have_tested($_COOKIE["uid"], $id) === false)
+        insert_grade($_COOKIE["uid"], $_COOKIE["user_name"], $id, $right_answer["title"], $res_fen);
     require("./view/total.html");
 
     // echo '<pre>';
