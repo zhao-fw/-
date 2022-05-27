@@ -4,25 +4,25 @@
 
 目前效果如下：
 
-* 注册登录：<img src="D:\86147\Tepora-img\image-20220512213800883.png" alt="image-20220512213800883" style="zoom:80%;" /><img src="D:\86147\Tepora-img\image-20220512213814542.png" alt="image-20220512213814542" style="zoom:80%;" />
+* 注册登录：<img src="img\image-20220512213800883.png" alt="image-20220512213800883" style="zoom:80%;" /><img src="img\image-20220512213814542.png" alt="image-20220512213814542" style="zoom:80%;" />
 
 * 主界面：进入时会提示
 
-  ![image-20220512213911565](..\image-20220512213911565.png)
+  ![image-20220512213911565](img\image-20220512213911565.png)
 
-  提示：<img src="..\image-20220512213937088.png" alt="image-20220512213937088" style="zoom:80%;" />
+  提示：<img src="img\image-20220512213937088.png" alt="image-20220512213937088" style="zoom:80%;" />
 
 * 考试界面：
 
-  <img src="..\image-20220512214114934.png" alt="image-20220512214114934" style="zoom:80%;" />
+  <img src="img\image-20220512214114934.png" alt="image-20220512214114934" style="zoom:80%;" />
 
   考试结束时，计算分数：
 
-  <img src="..\image-20220512214404088.png" alt="image-20220512214404088" style="zoom:80%;" />
+  <img src="img\image-20220512214404088.png" alt="image-20220512214404088" style="zoom:80%;" />
 
 * 个人信息：不同角色查看的权限不同，内容不同
 
-  <img src="..\image-20220512214025526.png" alt="image-20220512214025526" style="zoom:80%;" />学生登录时查看内容：<img src="..\image-20220512214458598.png" alt="image-20220512214458598" style="zoom:80%;" />
+  <img src="img\image-20220512214025526.png" alt="image-20220512214025526" style="zoom:80%;" />学生登录时查看内容：<img src="img\image-20220512214458598.png" alt="image-20220512214458598" style="zoom:80%;" />
 
 
 
