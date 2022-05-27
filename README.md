@@ -8,7 +8,7 @@
 
 * 主界面：进入时会提示
 
-  ![image-20220512213911565](img\image-20220512213911565.png)
+  <img src="img\image-20220512213911565.png" alt="image-20220512213911565.png" style="zoom:80%;" />
 
   提示：<img src="img\image-20220512213937088.png" alt="image-20220512213937088" style="zoom:80%;" />
 
